@@ -1,3 +1,6 @@
 venv
 .env
 .DS_Store
+2024/
+2023/
+*.pyc
