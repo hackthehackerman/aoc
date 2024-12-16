@@ -4,6 +4,8 @@ from functools import lru_cache
 import re
 import copy
 import time
+from typing import Tuple, List, Set, Dict
+from heapq import heappush, heappop
 
 AOC_YEAR = 2023
 
@@ -35,14 +37,16 @@ def export_matrix_to_file(m, file_name):
             
             
 # matrix manupulation
+Point = Tuple[int, int]
+TL, T, TR, R, BR, B, BL, L = (-1,-1), (-1,0), (-1,1), (0,1), (1,1), (1,0), (1,-1), (0,-1)
+ZERO = (0,0)
+
 def inbound(m, i, j):
     if i<0 or i >= len(m):
         return False
     if j<0 or j >= len(m[0]):
         return False
     return True
-
-TL, T, TR, R, BR, B, BL, L = (-1,-1), (-1,0), (-1,1), (0,1), (1,1), (1,0), (1,-1), (0,-1)
 
 def add_coords(c1, c2):
     return (c1[0] + c2[0], c1[1] + c2[1])
@@ -56,6 +60,21 @@ def copy_matrix(m1, m2):
     for i in range(len(m1)):
         for j in range(len(m1[0])):
             m1[i][j] = m2[i][j]
+            
+def point_of(m, e):
+    return next((i, j) for i in range(len(m)) for j in range(len(m[0])) if m[i][j] == e)
+            
+## directions
+DIRECTIONS = {
+    "N": T,
+    "E": R,
+    "S": B,
+    "W": L,
+}
+REVERSE_DIRECTIONS = {v: k for k, v in DIRECTIONS.items()}
+TURN_RIGHT = {"N":"E", "E":"S", "S":"W", "W":"N"}
+TURN_LEFT = {"N":"W", "W":"S", "S":"E", "E":"N"}
+
             
 # run answer
 AOC_RESULTS = defaultdict(dict)
