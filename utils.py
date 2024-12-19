@@ -35,6 +35,9 @@ def export_matrix_to_file(m, file_name):
         for row in m:
             f.write(''.join(row) + '\n')
             
+def parse_ints(s):
+    return [int(x) for x in re.findall(r'-?\d+', s)]
+            
             
 # matrix manupulation
 Point = Tuple[int, int]
