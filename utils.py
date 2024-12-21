@@ -4,7 +4,7 @@ from functools import lru_cache
 import re
 import copy
 import time
-from typing import Tuple, List, Set, Dict
+from typing import Tuple, List, Set, Dict, Generator
 from heapq import heappush, heappop
 
 AOC_YEAR = 2023
